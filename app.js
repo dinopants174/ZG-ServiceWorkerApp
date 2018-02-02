@@ -9,12 +9,11 @@ var session = require('express-session');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var index = require('./routes/index');
-var auth = require('./auth');
 
 passport.use(new FacebookStrategy({
-  clientID: auth.FACEBOOK_APP_ID,
-  clientSecret: auth.FACEBOOK_APP_SECRET,
-  callbackURL: auth.FACEBOOK_APP_CALLBACK_URL
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: process.env.FACEBOOK_APP_CALLBACK_URL
 },
 function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
