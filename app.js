@@ -10,10 +10,16 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var index = require('./routes/index');
 
+try {
+  var auth = require('./auth.js');
+} catch (err){
+  console.log('Running in production!');  
+}
+
 passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: process.env.FACEBOOK_APP_CALLBACK_URL
+  clientID: process.env.FACEBOOK_APP_ID || auth.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET || auth.FACEBOOK_APP_SECRET,
+  callbackURL: process.env.FACEBOOK_APP_CALLBACK_URL || auth.FACEBOOK_APP_CALLBACK_URL
 },
 function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
