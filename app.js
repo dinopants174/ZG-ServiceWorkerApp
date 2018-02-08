@@ -10,11 +10,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var index = require('./routes/index');
 
-try {
-  var auth = require('./auth.js');
-} catch (err){
-  console.log('Running in production!');  
-}
+try {var auth = require('./auth.js');} catch (err) { console.log('Running in production!');  }
 
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID || auth.FACEBOOK_APP_ID,
